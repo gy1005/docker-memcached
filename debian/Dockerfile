@@ -19,6 +19,8 @@ RUN set -x \
 		perl \
 		wget \
 		git \
+		autotools-dev \
+          	automake \
 	' \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
