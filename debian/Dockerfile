@@ -18,17 +18,17 @@ RUN set -x \
 		make \
 		perl \
 		wget \
+		git \
 	' \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
 	\
-	&& wget -O memcached.tar.gz "https://memcached.org/files/memcached-$MEMCACHED_VERSION.tar.gz" \
-	&& echo "$MEMCACHED_SHA1  memcached.tar.gz" | sha1sum -c - \
-	&& mkdir -p /usr/src/memcached \
-	&& tar -xzf memcached.tar.gz -C /usr/src/memcached --strip-components=1 \
-	&& rm memcached.tar.gz \
+	&& mkdir -p /usr/src \
+	&& cd /usr/src
+	&& git clone https://github.com/gy1005/memcached.git \	
 	\
 	&& cd /usr/src/memcached \
+	&& ./autogen.sh
 	\
 	&& ./configure \
 		--build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
