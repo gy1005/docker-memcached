@@ -34,8 +34,7 @@ RUN set -x \
 		--build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
 		--enable-sasl \
 	&& make -j "$(nproc)" \
-	\
-	&& make test \
+	\	
 	&& make install \
 	\
 	&& cd / && rm -rf /usr/src/memcached \
