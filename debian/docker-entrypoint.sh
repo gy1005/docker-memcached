@@ -6,4 +6,5 @@ if [ "${1#-}" != "$1" ]; then
 	set -- memcached "$@"
 fi
 
-exec "$@"
+exec "$@" > /home/memcached.log
+

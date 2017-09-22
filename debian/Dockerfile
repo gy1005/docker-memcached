@@ -20,17 +20,17 @@ RUN set -x \
 		wget \
 		git \
 		autotools-dev \
-          	automake \
+        automake \
 	' \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
 	\
 	&& mkdir -p /usr/src \
-	&& cd /usr/src
+	&& cd /usr/src \
 	&& git clone https://github.com/gy1005/memcached.git \	
 	\
 	&& cd /usr/src/memcached \
-	&& ./autogen.sh
+	&& ./autogen.sh \
 	\
 	&& ./configure \
 		--build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
@@ -49,6 +49,8 @@ RUN set -x \
 	&& memcached -V
 
 COPY docker-entrypoint.sh /usr/local/bin/
+RUN touch /home/memcached.log
+RUN chmod 777 /home/memcached.log
 RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 
